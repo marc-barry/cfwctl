@@ -37,7 +37,32 @@ var workerScriptListCmd = &cobra.Command{
 	},
 }
 
+var workerScriptDownloadCmd = &cobra.Command{
+	Use:   "download",
+	Short: "download worker",
+	Long:  `Download a worker`,
+	Run: func(cmd *cobra.Command, args []string) {
+		api, err := newCfAPIClient(cloudflare.UsingAccount(cfAccountIDFlag))
+		if err != nil {
+			log.Fatalf("creating new Cloudflare API client: %s", err.Error())
+		}
+		if len(args) != 1 {
+			log.Fatalf("command requires 1 argument which is the script name")
+		}
+		res, err := api.DownloadWorker(&cloudflare.WorkerRequestParams{ZoneID: cfZoneIDFlag, ScriptName: args[0]})
+		if err != nil {
+			log.Fatalf("downloading Worker %s", err.Error())
+		}
+		b, err := json.MarshalIndent(res.WorkerScript, "", " ")
+		if err != nil {
+			log.Fatalf("marshaling JSON: %s", err.Error())
+		}
+		fmt.Printf("%s", b)
+	},
+}
+
 func init() {
 	workerCmd.AddCommand(workerScriptCmd)
 	workerScriptCmd.AddCommand(workerScriptListCmd)
+	workerScriptCmd.AddCommand(workerScriptDownloadCmd)
 }
