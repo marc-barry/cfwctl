@@ -11,6 +11,7 @@ var (
 	// Used for flags
 	cfAPITokenFlag  string
 	cfAccountIDFlag string
+	cfZoneIDFlag    string
 
 	rootCmd = &cobra.Command{
 		Use:              "cfwctl",

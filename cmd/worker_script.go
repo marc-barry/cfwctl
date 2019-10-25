@@ -9,7 +9,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// workerCmd represents the worker command
 var workerScriptCmd = &cobra.Command{
 	Use:              "script",
 	Short:            "script commands",
