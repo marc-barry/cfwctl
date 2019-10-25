@@ -30,7 +30,7 @@ var workerScriptListCmd = &cobra.Command{
 		if err != nil {
 			log.Fatalf("listing worker scripts: %s", err.Error())
 		}
-		b, err := json.Marshal(res.WorkerList)
+		b, err := json.MarshalIndent(res.WorkerList, "", " ")
 		if err != nil {
 			log.Fatalf("marshaling JSON: %s", err.Error())
 		}
