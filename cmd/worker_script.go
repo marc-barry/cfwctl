@@ -3,9 +3,11 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 
 	"github.com/cloudflare/cloudflare-go"
+	"github.com/marc-barry/cfwctl/internal/utility"
 	"github.com/spf13/cobra"
 )
 
@@ -85,9 +87,41 @@ var workerScriptListCmd = &cobra.Command{
 	},
 }
 
+var workerScriptUploadCmd = &cobra.Command{
+	Use:   "upload",
+	Short: "upload worker",
+	Long:  `Upload a worker`,
+	Run: func(cmd *cobra.Command, args []string) {
+		api, err := newCfAPIClient(cloudflare.UsingAccount(cfAccountIDFlag))
+		if err != nil {
+			log.Fatalf("creating new Cloudflare API client: %s", err.Error())
+		}
+		if len(args) != 2 {
+			log.Fatalf("command requires 2 arguments; (1) the script name, (2) a valid script filename")
+		}
+		if !utility.FileExists(args[1]) {
+			log.Fatalf("%s is not a file", args[1])
+		}
+		script, err := ioutil.ReadFile(args[1])
+		if err != nil {
+			log.Fatalf("reading script file %s", err.Error())
+		}
+		res, err := api.UploadWorker(&cloudflare.WorkerRequestParams{ZoneID: cfZoneIDFlag, ScriptName: args[0]}, string(script))
+		if err != nil {
+			log.Fatalf("uploading Worker %s", err.Error())
+		}
+		b, err := json.MarshalIndent(res, "", " ")
+		if err != nil {
+			log.Fatalf("marshaling JSON: %s", err.Error())
+		}
+		fmt.Printf("%s", b)
+	},
+}
+
 func init() {
 	workerCmd.AddCommand(workerScriptCmd)
 	workerScriptCmd.AddCommand(workerScriptDeleteCmd)
 	workerScriptCmd.AddCommand(workerScriptDownloadCmd)
 	workerScriptCmd.AddCommand(workerScriptListCmd)
+	workerScriptCmd.AddCommand(workerScriptUploadCmd)
 }
