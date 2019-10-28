@@ -22,13 +22,11 @@ var workerScriptDeleteCmd = &cobra.Command{
 	Use:   "delete",
 	Short: "delete worker",
 	Long:  `Delete a worker`,
+	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		api, err := newCfAPIClient(cloudflare.UsingAccount(cfAccountIDFlag))
 		if err != nil {
 			log.Fatalf("creating new Cloudflare API client: %s", err.Error())
-		}
-		if len(args) != 1 {
-			log.Fatalf("command requires 1 argument which is the script name")
 		}
 		res, err := api.DeleteWorker(&cloudflare.WorkerRequestParams{ZoneID: cfZoneIDFlag, ScriptName: args[0]})
 		if err != nil {
@@ -46,13 +44,11 @@ var workerScriptDownloadCmd = &cobra.Command{
 	Use:   "download",
 	Short: "download worker",
 	Long:  `Download a worker`,
+	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		api, err := newCfAPIClient(cloudflare.UsingAccount(cfAccountIDFlag))
 		if err != nil {
 			log.Fatalf("creating new Cloudflare API client: %s", err.Error())
-		}
-		if len(args) != 1 {
-			log.Fatalf("command requires 1 argument which is the script name")
 		}
 		res, err := api.DownloadWorker(&cloudflare.WorkerRequestParams{ZoneID: cfZoneIDFlag, ScriptName: args[0]})
 		if err != nil {
@@ -70,6 +66,7 @@ var workerScriptListCmd = &cobra.Command{
 	Use:   "list",
 	Short: "list workers",
 	Long:  `Fetch a list of uploaded workers`,
+	Args:  cobra.ExactArgs(0),
 	Run: func(cmd *cobra.Command, args []string) {
 		api, err := newCfAPIClient(cloudflare.UsingAccount(cfAccountIDFlag))
 		if err != nil {
@@ -91,13 +88,11 @@ var workerScriptUploadCmd = &cobra.Command{
 	Use:   "upload",
 	Short: "upload worker",
 	Long:  `Upload a worker`,
+	Args:  cobra.ExactArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {
 		api, err := newCfAPIClient(cloudflare.UsingAccount(cfAccountIDFlag))
 		if err != nil {
 			log.Fatalf("creating new Cloudflare API client: %s", err.Error())
-		}
-		if len(args) != 2 {
-			log.Fatalf("command requires 2 arguments; (1) the script name, (2) a valid script filename")
 		}
 		if !utility.FileExists(args[1]) {
 			log.Fatalf("%s is not a file", args[1])

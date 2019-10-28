@@ -21,11 +21,6 @@ var (
 	}
 )
 
-func init() {
-	rootCmd.PersistentFlags().StringVar(&cfAPITokenFlag, CfAPITokenFlag, "", "Cloudflare API token")
-	rootCmd.MarkPersistentFlagRequired(CfAPITokenFlag)
-}
-
 func newCfAPIClient(opts ...cloudflare.Option) (*cloudflare.API, error) {
 	if cfAPITokenFlag != "" {
 		return cloudflare.NewWithAPIToken(cfAPITokenFlag, opts...)

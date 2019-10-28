@@ -14,6 +14,8 @@ var workerCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(workerCmd)
+	workerCmd.PersistentFlags().StringVar(&cfAPITokenFlag, CfAPITokenFlag, "", "Cloudflare API token")
+	workerCmd.MarkPersistentFlagRequired(CfAPITokenFlag)
 	workerCmd.PersistentFlags().StringVar(&cfAccountIDFlag, CfAccountIDFlag, "", "Cloudflare account ID")
 	workerCmd.MarkPersistentFlagRequired(CfAccountIDFlag)
 }
