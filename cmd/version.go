@@ -12,6 +12,7 @@ var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Print the version of cfwctl",
 	Long:  `Version returns the current version of cfctl that you are running`,
+	Args:  cobra.ExactArgs(0),
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Printf("%s", currentVersion())
 	},

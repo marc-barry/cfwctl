@@ -20,6 +20,7 @@ var workerRoutesListCmd = &cobra.Command{
 	Use:   "list",
 	Short: "list workers routes",
 	Long:  `Fetch a list of routes for Workers`,
+	Args:  cobra.ExactArgs(0),
 	Run: func(cmd *cobra.Command, args []string) {
 		api, err := newCfAPIClient(cloudflare.UsingAccount(cfAccountIDFlag))
 		if err != nil {
