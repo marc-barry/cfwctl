@@ -11,14 +11,14 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var workerScriptCmd = &cobra.Command{
-	Use:              "script",
-	Short:            "script commands",
-	Long:             `Script commands that can be run`,
+var workerScriptsCmd = &cobra.Command{
+	Use:              "scripts",
+	Short:            "scripts commands",
+	Long:             `Scripts commands that can be run`,
 	TraverseChildren: true,
 }
 
-var workerScriptDeleteCmd = &cobra.Command{
+var workerScriptsDeleteCmd = &cobra.Command{
 	Use:   "delete",
 	Short: "delete worker",
 	Long:  `Delete a Worker`,
@@ -40,7 +40,7 @@ var workerScriptDeleteCmd = &cobra.Command{
 	},
 }
 
-var workerScriptDownloadCmd = &cobra.Command{
+var workerScriptsDownloadCmd = &cobra.Command{
 	Use:   "download",
 	Short: "download worker",
 	Long:  `Download a Worker`,
@@ -62,7 +62,7 @@ var workerScriptDownloadCmd = &cobra.Command{
 	},
 }
 
-var workerScriptListCmd = &cobra.Command{
+var workerScriptsListCmd = &cobra.Command{
 	Use:   "list",
 	Short: "list workers",
 	Long:  `Fetch a list of uploaded Workers`,
@@ -84,7 +84,7 @@ var workerScriptListCmd = &cobra.Command{
 	},
 }
 
-var workerScriptUploadCmd = &cobra.Command{
+var workerScriptsUploadCmd = &cobra.Command{
 	Use:   "upload",
 	Short: "upload worker",
 	Long:  `Upload a Worker`,
@@ -114,9 +114,9 @@ var workerScriptUploadCmd = &cobra.Command{
 }
 
 func init() {
-	workerCmd.AddCommand(workerScriptCmd)
-	workerScriptCmd.AddCommand(workerScriptDeleteCmd)
-	workerScriptCmd.AddCommand(workerScriptDownloadCmd)
-	workerScriptCmd.AddCommand(workerScriptListCmd)
-	workerScriptCmd.AddCommand(workerScriptUploadCmd)
+	workerCmd.AddCommand(workerScriptsCmd)
+	workerScriptsCmd.AddCommand(workerScriptsDeleteCmd)
+	workerScriptsCmd.AddCommand(workerScriptsDownloadCmd)
+	workerScriptsCmd.AddCommand(workerScriptsListCmd)
+	workerScriptsCmd.AddCommand(workerScriptsUploadCmd)
 }
