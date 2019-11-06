@@ -21,7 +21,7 @@ var workerScriptCmd = &cobra.Command{
 var workerScriptDeleteCmd = &cobra.Command{
 	Use:   "delete",
 	Short: "delete worker",
-	Long:  `Delete a worker`,
+	Long:  `Delete a Worker`,
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		api, err := newCfAPIClient(cloudflare.UsingAccount(cfAccountIDFlag))
@@ -43,7 +43,7 @@ var workerScriptDeleteCmd = &cobra.Command{
 var workerScriptDownloadCmd = &cobra.Command{
 	Use:   "download",
 	Short: "download worker",
-	Long:  `Download a worker`,
+	Long:  `Download a Worker`,
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		api, err := newCfAPIClient(cloudflare.UsingAccount(cfAccountIDFlag))
@@ -65,7 +65,7 @@ var workerScriptDownloadCmd = &cobra.Command{
 var workerScriptListCmd = &cobra.Command{
 	Use:   "list",
 	Short: "list workers",
-	Long:  `Fetch a list of uploaded workers`,
+	Long:  `Fetch a list of uploaded Workers`,
 	Args:  cobra.ExactArgs(0),
 	Run: func(cmd *cobra.Command, args []string) {
 		api, err := newCfAPIClient(cloudflare.UsingAccount(cfAccountIDFlag))
@@ -87,7 +87,7 @@ var workerScriptListCmd = &cobra.Command{
 var workerScriptUploadCmd = &cobra.Command{
 	Use:   "upload",
 	Short: "upload worker",
-	Long:  `Upload a worker`,
+	Long:  `Upload a Worker`,
 	Args:  cobra.ExactArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {
 		api, err := newCfAPIClient(cloudflare.UsingAccount(cfAccountIDFlag))
