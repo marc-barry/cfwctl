@@ -11,6 +11,11 @@ RUN CGO_ENABLED=0 \
   cmd/cfwctl/main.go
 
 FROM alpine:3.10.3@sha256:c19173c5ada610a5989151111163d28a67368362762534d8a8121ce95cf2bd5a
+ARG USER=${USER:-cfwctl}
+ARG UID=${UID:-1337}
+
+RUN addgroup -g ${UID} -S ${USER} \
+ && adduser  -u ${UID} -S ${USER} -G ${USER}
 
 RUN apk add --no-cache ca-certificates
 
@@ -18,4 +23,6 @@ WORKDIR /bin/
 # Copy the Pre-built binary file from the previous stage
 COPY --from=builder /builder/cfwctl .
 EXPOSE 8080
+
+USER ${UID}:${UID}
 CMD ["./cfwctl"]
